@@ -1,8 +1,69 @@
 <html>
-    <body>
-        <canvas id="myCanvas"></canvas>
-    </body>
+<head>
+    <meta charset="utf8" />
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+
 </html>
+
 <script>
-    
+    // 序列对象
+    // 1.生成数列
+    // 2.求逆序数
+    var Sequence = function (number) {
+        this.number = number
+        this.inverseCount = calcInverseNumber(this.number)
+    }
+
+    // 生成数列
+    function generateNumbers(digit) {
+        var arr = []
+        for (var i = 1; i <= digit; i++) {
+            arr.push(i)
+        }
+        var newArr = []
+
+        while (arr.length) {
+            newArr.push(arr.splice(Math.ceil(Math.random() * arr.length-1), 1)[0])
+        }
+
+        return newArr
+    }
+
+    // 计算逆序数
+    function calcInverseNumber(number) {
+        var sum = 0
+        for(var i=0, len=number.length; i<len; i++) {
+            var digit = number[i]
+            for(var j=i+1; j<len; j++) {
+                if(digit> number[j]) {
+                    sum++
+                }
+            }
+        }
+        console.log(number)
+        return sum
+    }
+
+    function regCheck(reg, str) {
+        var re = new RegExp(reg);
+        if (re.test(str)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function isDigit(number) {
+        return regCheck(/^[0-9]+$/g, number)
+    }
+
+</script>
+
+<script>
+
+    var s = new Sequence(generateNumbers(11))
+
 </script>
