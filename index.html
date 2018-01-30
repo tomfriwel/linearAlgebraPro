@@ -1,7 +1,9 @@
 <html>
+
 <head>
     <meta charset="utf8" />
 </head>
+
 <body>
     <canvas id="myCanvas"></canvas>
 </body>
@@ -26,7 +28,7 @@
         var newArr = []
 
         while (arr.length) {
-            newArr.push(arr.splice(Math.ceil(Math.random() * arr.length-1), 1)[0])
+            newArr.push(arr.splice(Math.ceil(Math.random() * arr.length - 1), 1)[0])
         }
 
         return newArr
@@ -35,16 +37,24 @@
     // 计算逆序数
     function calcInverseNumber(number) {
         var sum = 0
-        for(var i=0, len=number.length; i<len; i++) {
+        for (var i = 0, len = number.length; i < len; i++) {
             var digit = number[i]
-            for(var j=i+1; j<len; j++) {
-                if(digit> number[j]) {
+            for (var j = i + 1; j < len; j++) {
+                if (digit > number[j]) {
                     sum++
                 }
             }
         }
-        console.log(number)
         return sum
+    }
+
+    // 阶乘n!
+    function factorial(n) {
+        var result = 1
+        for (i = 2; i <= n; i++) {
+            result *= i
+        }
+        return result
     }
 
     function regCheck(reg, str) {
@@ -63,7 +73,90 @@
 </script>
 
 <script>
+    // 行列式 determinant
+    /** 
+        data = 
+            [
+                [a11, a12, a13],
+                [a21, a22, a23],
+                [a31, a32, a33]
+            ]
+    */
+    var Determinant = function (data) {
+        this.data = data
+    }
 
-    var s = new Sequence(generateNumbers(11))
+    // 计算行列式的值
+    /*
+        calcDeterminant([
+            [1, 2, 5],
+            [1, 3, -2],
+            [2, 5, 3]
+        ])
+    */
+    function calcDeterminant(data) {
+        var n = data.length
+        var number = generateNumbers(n) //标准序列
+        var sum = []
+        permute(sum, number, 0, n - 1)
+        var inverses = sum.map(function (item) {
+            return calcInverseNumber(item)
+        })
+
+        var resultSum = 0
+        for (var i = 0, len=factorial(n); i < len; i++) {
+            var arr_j = sum[i]
+            var inverseCount = inverses[i]
+            var result = 1
+
+            var k = 0
+            arr_j.forEach(function (column) {
+                result *= data[k][column - 1]
+                k++
+            })
+
+            resultSum += (inverseCount % 2 ? -1 : 1) * result
+        }
+
+        return resultSum
+    }
+
+    function swap(arr, i, j) {
+        var temp = arr[i]
+        arr[i] = arr[j]
+        arr[j] = temp
+        return arr
+    }
+
+    /**
+        计算标准序列的所有排列,结果放入sum. permutation
+        最好是10以下的排列, 不然会算很久.
+    */
+    // https://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/
+    function permute(sum, arr, start, end) {
+        if (start == end) {
+            sum.push(arr.slice(0))
+        }
+        else {
+            for (var i = start; i <= end; i++) {
+                swap(arr, start, i)
+                permute(sum, arr, start + 1, end)
+                swap(arr, start, i)
+            }
+        }
+    }
+</script>
+
+<script>
+
+    var number = generateNumbers(9)
+    var s = new Sequence(number)
+    var sum = []
+    permute(sum, number, 0, number.length - 1)
+    var inverses = sum.map(function (item) {
+        return calcInverseNumber(item)
+    })
+
+
 
 </script>
