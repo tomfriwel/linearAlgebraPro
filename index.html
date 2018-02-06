@@ -19,7 +19,7 @@
         this.inverseCount = calcInverseNumber(this.number)
     }
 
-    // 生成数列
+    // 生成标准全排列
     function generateNumbers(digit) {
         var arr = []
         for (var i = 1; i <= digit; i++) {
@@ -34,7 +34,7 @@
         return newArr
     }
 
-    // 计算逆序数
+    // 计算全排列的逆序数
     function calcInverseNumber(number) {
         var sum = 0
         for (var i = 0, len = number.length; i < len; i++) {
@@ -81,6 +81,7 @@
                 [a21, a22, a23],
                 [a31, a32, a33]
             ]
+            det(a_ij)
     */
     var Determinant = function (data) {
         this.data = data
@@ -115,21 +116,23 @@
                 k++
             })
 
+            // 偶排列、奇排列
             resultSum += (inverseCount % 2 ? -1 : 1) * result
         }
 
         return resultSum
     }
 
+    /* 交互数组中的两个元素 */
     function swap(arr, i, j) {
         var temp = arr[i]
         arr[i] = arr[j]
         arr[j] = temp
         return arr
     }
-
+    
     /**
-        计算标准序列的所有排列,结果放入sum. permutation
+        计算标准序列的所有全排列,结果放入sum. permutation
         最好是10以下的排列, 不然会算很久.
     */
     // https://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/
