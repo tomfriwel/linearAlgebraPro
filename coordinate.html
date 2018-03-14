@@ -1,0 +1,87 @@
+<html>
+
+<body>
+    <canvas id="myCanvas" style="box-shadow:1px 1px 10px #666;"></canvas>
+</body>
+
+</html>
+<script>
+    var W = 500, H = 500, scaleD = 10
+
+    // 因为原点是从左上角开始的，为了方便看直线，将原点偏移到指定位置
+    // 每一个设置坐标的地方都要(x + originX, y + originY)
+    var originX = 250, originY = 250
+    var canvas = document.getElementById('myCanvas')
+    canvas.width = W
+    canvas.height = H
+    var ctx = canvas.getContext('2d')
+    drawCoordinateSystem(ctx)
+
+    /*
+        函数中涉及到的(ctx.什么什么)具体含义可以参考 http://www.w3school.com.cn/tags/html_ref_canvas.asp
+    */
+
+    // 绘制坐标线
+    function drawCoordinateSystem(ctx) {
+        ctx.strokeStyle = 'black'
+        ctx.lineWidth = 1
+
+        // horizontal line
+        ctx.beginPath()
+        ctx.moveTo(0, 0 + originY)
+        ctx.lineTo(W + originX, 0 + originY)
+        ctx.stroke()
+        ctx.closePath()
+
+        // vertical line
+        ctx.beginPath()
+        ctx.moveTo(0 + originX, 0)
+        ctx.lineTo(0 + originX, H + originY)
+        ctx.stroke()
+        ctx.closePath()
+
+        drawScale(ctx)
+        drawDirectionArrow(ctx)
+    }
+
+    // 绘制刻度
+    function drawScale(ctx) {
+        ctx.strokeStyle = 'black'
+        // horizontal
+        for (var x = 0; x < W; x += 50) {
+            ctx.beginPath()
+            ctx.moveTo(x, 0 + originY)
+            ctx.lineTo(x, scaleD + originY)
+            ctx.stroke()
+            ctx.closePath()
+        }
+
+        // vertical
+        for (var y = 0; y < H; y += 50) {
+            ctx.beginPath()
+            ctx.moveTo(0 + originX, y)
+            ctx.lineTo(scaleD + originX, y)
+            ctx.stroke()
+            ctx.closePath()
+        }
+    }
+
+    //绘制方向标（三角形）
+    function drawDirectionArrow(ctx) {
+        // horizontal
+        ctx.beginPath()
+        ctx.moveTo(W - scaleD * 2, originY - scaleD)
+        ctx.lineTo(W - scaleD * 2, originY + scaleD)
+        ctx.lineTo(W, originY)
+        ctx.closePath()
+        ctx.fill()
+
+        // vertical
+        ctx.beginPath()
+        ctx.moveTo(originX - scaleD, H - scaleD * 2)
+        ctx.lineTo(originX + scaleD, H - scaleD * 2)
+        ctx.lineTo(originX, H)
+        ctx.closePath()
+        ctx.fill()
+    }
+</script>
