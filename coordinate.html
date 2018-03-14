@@ -6,11 +6,11 @@
 
 </html>
 <script>
-    var W = 500, H = 500, scaleD = 10
+    var W = 800.0, H = 600.0, scaleD = 10.0
 
     // 因为原点是从左上角开始的，为了方便看直线，将原点偏移到指定位置
     // 每一个设置坐标的地方都要(x + originX, y + originY)
-    var originX = 250, originY = 250
+    var originX = W/2.0, originY = H/2.0
     var canvas = document.getElementById('myCanvas')
     canvas.width = W
     canvas.height = H
@@ -21,7 +21,8 @@
         函数中涉及到的(ctx.什么什么)具体含义可以参考 http://www.w3school.com.cn/tags/html_ref_canvas.asp
     */
 
-    // 绘制坐标线
+
+    //---绘制坐标线---
     function drawCoordinateSystem(ctx) {
         ctx.strokeStyle = 'black'
         ctx.lineWidth = 1
@@ -84,4 +85,7 @@
         ctx.closePath()
         ctx.fill()
     }
+    //---
+
+    //---绘制直线---
 </script>
