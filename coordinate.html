@@ -1,7 +1,39 @@
 <html>
 
+<head>
+    <style>
+        #myCanvas {
+            float: left;
+        }
+
+        .range-list {
+            float: left;
+            margin-left: 20px;
+            margin-top: 120px;
+            width: 200px;
+        }
+
+        .range-list input {
+            float: top;
+            width: 200px;
+        }
+    </style>
+</head>
+
 <body>
     <canvas id="myCanvas" style="box-shadow:1px 1px 10px #666;"></canvas>
+    <div class="range-list">
+        <p>直线方程：a * x + b * y = c</p>
+        <input id="rangeA" type="range" min="-300" max="300" value="1">
+        <p id="aValue">a=1</p>
+        </input>
+        <input id="rangeB" type="range" min="-300" max="300" value="1">
+        <p id="bValue">a=1</p>
+        </input>
+        <input id="rangeC" type="range" min="-2000" max="2000" value="150">
+        <p id="cValue">a=150</p>
+        </input>
+    </div>
 </body>
 
 </html>
@@ -10,12 +42,46 @@
 
     // 因为原点是从左上角开始的，为了方便看直线，将原点偏移到指定位置
     // 每一个设置坐标的地方都要(x + originX, y + originY)
-    var originX = W/2.0, originY = H/2.0
+    var originX = W / 2.0, originY = H / 2.0
     var canvas = document.getElementById('myCanvas')
     canvas.width = W
     canvas.height = H
     var ctx = canvas.getContext('2d')
     drawCoordinateSystem(ctx)
+
+    // 用于获取值
+    var rangeA = document.getElementById('rangeA')
+    var rangeB = document.getElementById('rangeB')
+    var rangeC = document.getElementById('rangeC')
+
+    // 用于显示值
+    var aValue = document.getElementById('aValue')
+    var bValue = document.getElementById('bValue')
+    var cValue = document.getElementById('cValue')
+
+    var a = rangeA.value, b = rangeB.value, c = rangeC.value
+
+    // 初始直线
+    drawLine(ctx, a, b, c)
+
+    // 当值改变时绘制直线
+    rangeA.onchange = function (e) {
+        a = rangeA.value
+        aValue.innerText = 'a=' + a
+        drawLine(ctx, a, b, c)
+    }
+
+    rangeB.onchange = function (e) {
+        b = rangeB.value
+        bValue.innerText = 'b=' + b
+        drawLine(ctx, a, b, c)
+    }
+
+    rangeC.onchange = function (e) {
+        c = rangeC.value
+        cValue.innerText = 'c=' + c
+        drawLine(ctx, a, b, c)
+    }
 
     /*
         函数中涉及到的(ctx.什么什么)具体含义可以参考 http://www.w3school.com.cn/tags/html_ref_canvas.asp
@@ -47,7 +113,6 @@
 
     // 绘制刻度
     function drawScale(ctx) {
-        ctx.strokeStyle = 'black'
         // horizontal
         for (var x = 0; x < W; x += 50) {
             ctx.beginPath()
@@ -88,4 +153,34 @@
     //---
 
     //---绘制直线---
+    /* 
+        a * x + b * y = c,
+
+        在 x, y 轴上的点
+        x = 0 && b != 0, y = c / b => (0, c / b)
+        y = 0 && a != 0, x = c / a => (c / a, 0)
+
+        b != 0, y = c / b => (x, (c - a * x) / b)
+        a != 0, x = c / a => ((c - b * y) / a, y)
+    */
+    function drawLine(ctx, a, b, c) {
+        if (b != 0 && a != 0) {
+            var x1 = c / a, y1 = 0
+            var x2 = 0, y2 = c / b
+            var x3 = -originX, y3 = (c - a * x3) / b
+            var x4 = originX, y4 = (c - a * x4) / b
+
+            console.log(x1, y1)
+            console.log(x2, y2)
+
+            ctx.strokeStyle = 'red'
+            ctx.lineWidth = 1
+
+            ctx.beginPath()
+            ctx.moveTo(x3 + originX, y3 + originY)
+            ctx.lineTo(x4 + originX, y4 + originY)
+            ctx.closePath()
+            ctx.stroke()
+        }
+    }
 </script>
