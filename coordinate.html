@@ -9,13 +9,13 @@
         .range-list {
             float: left;
             margin-left: 20px;
-            margin-top: 120px;
-            width: 200px;
+            margin-top: 20px;
+            width: 240px;
         }
 
         .range-list input {
             float: top;
-            width: 200px;
+            width: 100%;
         }
     </style>
 </head>
@@ -23,15 +23,29 @@
 <body>
     <canvas id="myCanvas" style="box-shadow:1px 1px 10px #666;"></canvas>
     <div class="range-list">
-        <p>直线方程：a * x + b * y = c</p>
-        <input id="rangeA" type="range" min="-300" max="300" value="1">
-        <p id="aValue">a=1</p>
+        <button onclick="randomLine()">random</button>
+
+        <p>直线方程1(red)：a * x + b * y = c</p>
+        <input id="rangeA1" type="range" min="-100" max="100" value="1">
+        <p id="a1Value">a=1</p>
         </input>
-        <input id="rangeB" type="range" min="-300" max="300" value="1">
-        <p id="bValue">a=1</p>
+        <input id="rangeB1" type="range" min="-100" max="100" value="1">
+        <p id="b1Value">b=1</p>
         </input>
-        <input id="rangeC" type="range" min="-2000" max="2000" value="150">
-        <p id="cValue">a=150</p>
+        <input id="rangeC1" type="range" min="-3000" max="3000" value="150">
+        <p id="c1Value">c=150</p>
+        </input>
+
+
+        <p>直线方程2(blue)：a * x + b * y = c</p>
+        <input id="rangeA2" type="range" min="-100" max="100" value="1">
+        <p id="a2Value">a=1</p>
+        </input>
+        <input id="rangeB2" type="range" min="-100" max="100" value="-1">
+        <p id="b2Value">b=-1</p>
+        </input>
+        <input id="rangeC2" type="range" min="-3000" max="3000" value="150">
+        <p id="c2Value">c=150</p>
         </input>
     </div>
 </body>
@@ -50,42 +64,108 @@
     drawCoordinateSystem(ctx)
 
     // 用于获取值
-    var rangeA = document.getElementById('rangeA')
-    var rangeB = document.getElementById('rangeB')
-    var rangeC = document.getElementById('rangeC')
+    var rangeA1 = document.getElementById('rangeA1')
+    var rangeB1 = document.getElementById('rangeB1')
+    var rangeC1 = document.getElementById('rangeC1')
+
+    var rangeA2 = document.getElementById('rangeA2')
+    var rangeB2 = document.getElementById('rangeB2')
+    var rangeC2 = document.getElementById('rangeC2')
 
     // 用于显示值
-    var aValue = document.getElementById('aValue')
-    var bValue = document.getElementById('bValue')
-    var cValue = document.getElementById('cValue')
+    var a1Value = document.getElementById('a1Value')
+    var b1Value = document.getElementById('b1Value')
+    var c1Value = document.getElementById('c1Value')
 
-    var a = rangeA.value, b = rangeB.value, c = rangeC.value
+    var a2Value = document.getElementById('a2Value')
+    var b2Value = document.getElementById('b2Value')
+    var c2Value = document.getElementById('c2Value')
+
+    var a1 = rangeA1.value, b1 = rangeB1.value, c1 = rangeC1.value
+    var a2 = rangeA2.value, b2 = rangeB2.value, c2 = rangeC2.value
 
     // 初始直线
-    drawLine(ctx, a, b, c)
+    drawLine(ctx, a1, b1, c1, 'red')
+    drawLine(ctx, a2, b2, c2, 'blue')
 
     // 当值改变时绘制直线
-    rangeA.onchange = function (e) {
-        a = rangeA.value
-        aValue.innerText = 'a=' + a
-        drawLine(ctx, a, b, c)
+    rangeA1.onchange = function (e) {
+        a1 = rangeA1.value
+        a1Value.innerText = 'a=' + a1
+        redrawLine(ctx)
     }
 
-    rangeB.onchange = function (e) {
-        b = rangeB.value
-        bValue.innerText = 'b=' + b
-        drawLine(ctx, a, b, c)
+    rangeB1.onchange = function (e) {
+        b1 = rangeB1.value
+        b1Value.innerText = 'b=' + b1
+        redrawLine(ctx)
     }
 
-    rangeC.onchange = function (e) {
-        c = rangeC.value
-        cValue.innerText = 'c=' + c
-        drawLine(ctx, a, b, c)
+    rangeC1.onchange = function (e) {
+        c1 = rangeC1.value
+        c1Value.innerText = 'c=' + c1
+        redrawLine(ctx)
+    }
+
+    //
+    rangeA2.onchange = function (e) {
+        a2 = rangeA2.value
+        a2Value.innerText = 'a=' + a2
+        redrawLine(ctx)
+    }
+
+    rangeB2.onchange = function (e) {
+        b2 = rangeB2.value
+        b2Value.innerText = 'b=' + b2
+        redrawLine(ctx)
+    }
+
+    rangeC2.onchange = function (e) {
+        c2 = rangeC2.value
+        c2Value.innerText = 'c=' + c2
+        redrawLine(ctx)
+    }
+
+
+    // 随机绘制直线
+    function randomLine() {
+        a1 = Math.floor(Math.random() * 200) - 100
+        b1 = Math.floor(Math.random() * 200) - 100
+        c1 = Math.floor(Math.random() * 6000) - 3000
+
+        a2 = Math.floor(Math.random() * 200) - 100
+        b2 = Math.floor(Math.random() * 200) - 100
+        c2 = Math.floor(Math.random() * 6000) - 3000
+
+        rangeA1.value = a1
+        rangeB1.value = b1
+        rangeC1.value = c1
+
+        rangeA2.value = a2
+        rangeB2.value = b2
+        rangeC2.value = c2
+
+        a1Value.innerText = 'a=' + a1
+        b1Value.innerText = 'b=' + b1
+        c1Value.innerText = 'c=' + c1
+
+        a2Value.innerText = 'a=' + a2
+        b2Value.innerText = 'b=' + b2
+        c2Value.innerText = 'c=' + c2
+
+        redrawLine(ctx)
     }
 
     /*
         函数中涉及到的(ctx.什么什么)具体含义可以参考 http://www.w3school.com.cn/tags/html_ref_canvas.asp
     */
+
+    function redrawLine(ctx) {
+        ctx.clearRect(0, 0, W, H)
+        drawCoordinateSystem(ctx)
+        drawLine(ctx, a1, b1, c1, 'red')
+        drawLine(ctx, a2, b2, c2, 'blue')
+    }
 
 
     //---绘制坐标线---
@@ -163,7 +243,7 @@
         b != 0, y = c / b => (x, (c - a * x) / b)
         a != 0, x = c / a => ((c - b * y) / a, y)
     */
-    function drawLine(ctx, a, b, c) {
+    function drawLine(ctx, a, b, c, color = 'red') {
         if (b != 0 && a != 0) {
             var x1 = c / a, y1 = 0
             var x2 = 0, y2 = c / b
@@ -173,7 +253,7 @@
             console.log(x1, y1)
             console.log(x2, y2)
 
-            ctx.strokeStyle = 'red'
+            ctx.strokeStyle = color
             ctx.lineWidth = 1
 
             ctx.beginPath()
