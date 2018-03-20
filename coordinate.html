@@ -166,6 +166,12 @@
         drawCoordinateSystem(ctx)
         drawLine(ctx, a1, b1, c1, 'red')
         drawLine(ctx, a2, b2, c2, 'blue')
+
+        var ins = calculateIntersection(a1, b1, c1, a2, b2, c2)
+        console.log(ins)
+        drawIntersection(ctx, ins.x, ins.y)
+
+        console.log()
     }
 
 
@@ -265,6 +271,29 @@
         }
     }
 
+    /*
+        a11 > a1
+        a21 > b1
+        b1 > c1
+        ...
+        计算两直线交点
+    */
+    function calculateIntersection(a11, a12, b1, a21, a22, b2) {
+        x1 = (b1 * a22 - a12 * b2) / (a11 * a22 - a12 * a21)
+        x2 = (a11 * b2 - b1 * a21) / (a11 * a22 - a12 * a21)
+
+        return {
+            x: x1,
+            y: x2
+        }
+    }
+
+    // 绘制交点
+    function drawIntersection(ctx, x, y) {
+        ctx.arc(x+originX, y+originY, 10, 0, 2*Math.PI)
+        ctx.fill()
+    }
+
     //---test---
     function test() {
         // 设置绘制线的颜色为black
@@ -291,5 +320,9 @@
 
         drawLine(ctx, 1, 1, 123, 'red')
         drawLine(ctx, 1, 5, 999, 'blue')
+
+        var ins = calculateIntersection(1, 1, 123, 1, 5, 999)
+        console.log(ins)
+        drawIntersection(ctx, ins.x, ins.y)
     }
 </script>
