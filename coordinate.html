@@ -32,7 +32,7 @@
         <input id="rangeB1" type="range" min="-100" max="100" value="1">
         <p id="b1Value">b=1</p>
         </input>
-        <input id="rangeC1" type="range" min="-3000" max="3000" value="150">
+        <input id="rangeC1" type="range" min="-3000" max="3000" value="123">
         <p id="c1Value">c=150</p>
         </input>
 
@@ -41,10 +41,10 @@
         <input id="rangeA2" type="range" min="-100" max="100" value="1">
         <p id="a2Value">a=1</p>
         </input>
-        <input id="rangeB2" type="range" min="-100" max="100" value="-1">
+        <input id="rangeB2" type="range" min="-100" max="100" value="5">
         <p id="b2Value">b=-1</p>
         </input>
-        <input id="rangeC2" type="range" min="-3000" max="3000" value="150">
+        <input id="rangeC2" type="range" min="-3000" max="3000" value="999">
         <p id="c2Value">c=150</p>
         </input>
     </div>
@@ -61,7 +61,6 @@
     canvas.width = W
     canvas.height = H
     var ctx = canvas.getContext('2d')
-    test()
     // drawCoordinateSystem(ctx)
 
     // 用于获取值
@@ -84,6 +83,10 @@
 
     var a1 = rangeA1.value, b1 = rangeB1.value, c1 = rangeC1.value
     var a2 = rangeA2.value, b2 = rangeB2.value, c2 = rangeC2.value
+
+
+    // test()
+    redrawLine(ctx)
 
     // 绘制初始直线
     // drawLine(ctx, a1, b1, c1, 'red')
@@ -296,33 +299,13 @@
 
     //---test---
     function test() {
-        // 设置绘制线的颜色为black
-        ctx.strokeStyle = 'black'
-
-        // 线宽度
-        ctx.lineWidth = 1
-
-        // 水平线
-        ctx.beginPath()
-        ctx.moveTo(0, 0 + originY)  // 画布的左边界中点
-        ctx.lineTo(W, 0 + originY)    // 画布的右边界中点
-        ctx.closePath()
-        ctx.stroke()
-
-        // 垂直线
-        ctx.beginPath()
-        ctx.moveTo(0 + originX, 0)  // 画布的上边界中点
-        ctx.lineTo(0 + originX, H)  // 画布的下边界中点
-        ctx.closePath()
-        ctx.stroke()
-        drawScale(ctx, scaleD)
-        drawDirectionArrow(ctx, scaleD)
+        drawCoordinateSystem(ctx)
 
         drawLine(ctx, 1, 1, 123, 'red')
         drawLine(ctx, 1, 5, 999, 'blue')
 
-        var ins = calculateIntersection(1, 1, 123, 1, 5, 999)
-        console.log(ins)
-        drawIntersection(ctx, ins.x, ins.y)
+        var p = calculateIntersection(1, 1, 123, 1, 5, 999)
+        console.log(p)
+        drawIntersection(ctx, p.x, p.y)
     }
 </script>
