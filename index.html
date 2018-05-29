@@ -130,6 +130,38 @@
 
         return resultSum
     }
+    /**
+     * [
+        [1, 0, 0],
+        [0, 3, 0],
+        [0, 0, 3]
+        ]
+     */
+    function calcDeterminantV1(data) {
+        let n = data.length
+        let standardIndex = []
+        for (let i = 0; i < n; i++) {
+            standardIndex.push(i)
+        }
+
+        // 得到所有排列的角标
+        let indexArr = []
+        generate(n, standardIndex, indexArr)
+
+        let sum = 0
+        for (let i = 0, len = factorial(n); i < len; i++) {
+            let arr = indexArr[i]
+            let inverseCount = calcInverseNumber(arr)
+
+            let item = (inverseCount % 2 ? -1 : 1)
+            for (let j = 0; j < n; j++) {
+                item *= data[j][arr[j]]
+            }
+            sum += item
+        }
+
+        console.log(sum)
+    }
 
     /*
         交互数组中的两个元素
@@ -165,17 +197,16 @@
         }
     }
 
-    let count = 0
     // https://en.wikipedia.org/wiki/Heap%27s_algorithm
-    function generate(n, A) {
+
+    function generate(n, A, result) {
         if (n == 1) {
-            count++
-            // return A
             console.log(A)
+            result.push(A.slice())
         }
         else {
             for (let i = 0; i < n - 1; i++) {
-                generate(n - 1, A)
+                generate(n - 1, A, result)
                 if (n % 2 == 0) {
                     swap(A, i, n - 1)
                 }
@@ -183,7 +214,7 @@
                     swap(A, 0, n - 1)
                 }
             }
-            generate(n - 1, A)
+            generate(n - 1, A, result)
         }
     }
 </script>
