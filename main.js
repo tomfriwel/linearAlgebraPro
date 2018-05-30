@@ -68,3 +68,46 @@ function calcDeterminantV1(data) {
 
     return sum
 }
+
+/**
+ * @param {Array} data 行列式数组
+ * 
+ */
+function calcDeterminantV1(data) {
+    let n = data.length
+    let standardIndex = []
+    for (let i = 0; i < n; i++) {
+        standardIndex.push(i)
+    }
+
+    // 得到所有排列的角标
+    let indexArr = []
+    generate(n, standardIndex, indexArr)
+
+    let sum = 0
+    for (let i = 0, len = factorial(n); i < len; i++) {
+        let arr = indexArr[i]
+        let inverseCount = calcInverseNumber(arr)
+
+        let item = (inverseCount % 2 ? -1 : 1)
+        for (let j = 0; j < n; j++) {
+            item *= data[j][arr[j]]
+        }
+        sum += item
+    }
+
+    console.log(sum)
+    return sum
+}
+
+/**
+ * 
+ * @param {Number} n 
+ */
+function factorial(n) {
+    var result = 1
+    for (i = 2; i <= n; i++) {
+        result *= i
+    }
+    return result
+}
