@@ -101,6 +101,7 @@ function calcDeterminantV1(data) {
 }
 
 /**
+ * n的阶乘
  * 
  * @param {Number} n 
  */
