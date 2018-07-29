@@ -81,12 +81,6 @@ let Det;
     }
     
     Det.prototype.calc = function () {
-        let data = this.array
-        let n = this.length
-    
-        // 得到所有排列的角标
-        let indexArr = this.items()
-    
         let sum = 0
         for (let i = 0, len = this.itemLength(); i < len; i++) {
             sum += this.itemValue(i)
