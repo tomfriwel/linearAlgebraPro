@@ -8,7 +8,7 @@
  */
 function generate(n, A, result) {
     if (n == 1) {
-        result.push(A)
+        result.push(A.slice())
     }
     else {
         for (let i = 0; i < n - 1; i++) {
@@ -111,4 +111,18 @@ function factorial(n) {
         result *= i
     }
     return result
+}
+
+/**
+ * 交互数组中的两个元素
+ * 
+ * @param {Array} arr
+ * @param {Number} i
+ * @param {Number} j
+ */
+function swap(arr, i, j) {
+    var temp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temp
+    return arr
 }
