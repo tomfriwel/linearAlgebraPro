@@ -12,8 +12,9 @@ let Det;
         // 保存逆序数的数组
         this.inverseNumberArray = null
     
-        // 保存每个元素的数组
+        // 保存每个项的数组
         this._items = null
+        this.itemValues = null
     }
     
     // 阶乘
@@ -30,11 +31,24 @@ let Det;
             this.inverseNumberArray = new Array(this.itemLength())
         }
         if (this.inverseNumberArray[index] == undefined) {
-            this.inverseNumberArray[index] = null
+            let sum = 0
+            let item = this.items()[index]
+            for (let i = 0, len = item.length; i < len; i++) {
+                // 取出第i个数
+                let digit = item[i]
+                // 用第i个数与第i位之后的数进行对比
+                for (let j = i + 1; j < len; j++) {
+                    if (digit > item[j]) {
+                        sum++
+                    }
+                }
+            }
+            this.inverseNumberArray[index] = sum
         }
+        return this.inverseNumberArray[index]
     }
     
-    // 获取保存每个元素的数组
+    // 获取保存每个项的数组
     Det.prototype.items = function () {
         if (this._items == null) {
             this._items = []
@@ -48,24 +62,34 @@ let Det;
         return this._items
     }
     
+    // 获取单个项的值
+    Det.prototype.itemValue = function (index) {
+        if (this.itemValues == null) {
+            this.itemValues = new Array(this.itemLength())
+        }
+        if(this.itemValues[index]==undefined) {
+            let inverseCount = this.inverseNumber(index)
+            let data = this.array
+            let item = this.items()[index]
+            let value = (inverseCount % 2 ? -1 : 1)
+            for (let j = 0, n = this.length; j < n; j++) {
+                value *= data[j][item[j]]
+            }
+            this.itemValues[index] = value
+        }
+        return this.itemValues[index]
+    }
+    
     Det.prototype.calc = function () {
         let data = this.array
         let n = this.length
     
         // 得到所有排列的角标
-        let indexArr = []
-        generate(n, this.standardIndex, indexArr)
+        let indexArr = this.items()
     
         let sum = 0
         for (let i = 0, len = this.itemLength(); i < len; i++) {
-            let arr = indexArr[i]
-            let inverseCount = calcInverseNumber(arr)
-    
-            let item = (inverseCount % 2 ? -1 : 1)
-            for (let j = 0; j < n; j++) {
-                item *= data[j][arr[j]]
-            }
-            sum += item
+            sum += this.itemValue(i)
         }
     
         console.log(sum)
@@ -82,7 +106,6 @@ let Det;
      */
     function generate(n, A, result) {
         if (n == 1) {
-            console.log(A)
             result.push(A.slice())
         }
         else {
@@ -97,25 +120,6 @@ let Det;
             }
             generate(n - 1, A, result)
         }
-    }
-    
-    /**
-     * 
-     * @param {Array} item 
-     */
-    function calcInverseNumber(item) {
-        let sum = 0
-        for (let i = 0, len = item.length; i < len; i++) {
-            // 取出第i个数
-            let digit = item[i]
-            // 用第i个数与第i位之后的数进行对比
-            for (let j = i + 1; j < len; j++) {
-                if (digit > item[j]) {
-                    sum++
-                }
-            }
-        }
-        return sum
     }
     
     /**
