@@ -11,6 +11,25 @@
 </html>
 <script src="./util.js"></script>
 <script src="./det.js"></script>
+<script>
+    // 测试转置行列式
+    // let det = new Det([
+    //     [1, 1, 1, 1],
+    //     [2, 2, 2, 2],
+    //     [3, 3, 3, 3],
+    //     [4, 4, 4, 4],
+    // ])
+    let det = new Det([
+        [2, 1, -5, 1],
+        [1, -3, 0, -6],
+        [0, 2, -1, 2],
+        [1, 4, -7, 6]
+    ])
+    det.calc()
+
+    let tdet = det.getTransposedDet()
+    tdet.calc()
+</script>
 <!-- <script>
     // 序列对象
     // 1.生成数列

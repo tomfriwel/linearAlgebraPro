@@ -2,16 +2,16 @@
 
 let Det;
 
-(function(){
+(function () {
     Det = function (array) {
         this.array = array
         this.length = array.length
         // 阶乘，元素个数
         this._itemLength = null
-    
+
         // 保存逆序数的数组
         this.inverseNumberArray = null
-    
+
         // 保存每个项的数组
         this._items = null
         this.itemValues = null
@@ -19,7 +19,7 @@ let Det;
         // 是否需要重新计算
         this.reCalc = false
     }
-    
+
     // 阶乘
     Det.prototype.itemLength = function () {
         if (this._itemLength == null) {
@@ -27,7 +27,7 @@ let Det;
         }
         return this._itemLength
     }
-    
+
     // 逆序数
     Det.prototype.inverseNumber = function (index) {
         if (this.inverseNumberArray == null) {
@@ -50,12 +50,12 @@ let Det;
         }
         return this.inverseNumberArray[index]
     }
-    
+
     // 获取保存每个项的数组
     Det.prototype.items = function () {
         if (this._items == null) {
             this._items = []
-    
+
             let standardIndex = []
             for (let i = 0; i < this.length; i++) {
                 standardIndex.push(i)
@@ -64,13 +64,13 @@ let Det;
         }
         return this._items
     }
-    
+
     // 获取单个项的值
     Det.prototype.itemValue = function (index) {
         if (this.itemValues == null) {
             this.itemValues = new Array(this.itemLength())
         }
-        if(this.itemValues[index]==undefined || this.reCalc) {
+        if (this.itemValues[index] == undefined || this.reCalc) {
             let inverseCount = this.inverseNumber(index)
             let data = this.array
             let item = this.items()[index]
@@ -82,16 +82,31 @@ let Det;
         }
         return this.itemValues[index]
     }
-    
+
     Det.prototype.calc = function () {
         let sum = 0
         for (let i = 0, len = this.itemLength(); i < len; i++) {
             sum += this.itemValue(i)
         }
-    
+
         console.log(this.array)
         console.log(sum)
-    
+
         return sum
+    }
+
+    // 获取转置行列式
+    Det.prototype.getTransposedDet = function () {
+        let len = this.length
+        let newArr = new Array(len)
+        for (let i = 0; i < len; i++) {
+            if(!newArr[i]) {
+                newArr[i] = new Array(len)
+            }
+            for (let j = 0; j < len; j++) {
+                newArr[i][j] = this.array[j][i]
+            }
+        }
+        return new Det(newArr)
     }
 })()
