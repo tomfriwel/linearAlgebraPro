@@ -1,4 +1,18 @@
 /**
+ * 交互数组中的两个元素
+ * 
+ * @param {Array} arr
+ * @param {Number} i
+ * @param {Number} j
+ */
+function swap(arr, i, j) {
+    var temp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temp
+    return arr
+}
+
+/**
  * 列举所有@param A 数组元素的排列
  * 
  * @param {Number} n A长度
@@ -34,18 +48,4 @@ function factorial(n) {
         result *= i
     }
     return result
-}
-
-/**
- * 交互数组中的两个元素
- * 
- * @param {Array} arr
- * @param {Number} i
- * @param {Number} j
- */
-function swap(arr, i, j) {
-    var temp = arr[i]
-    arr[i] = arr[j]
-    arr[j] = temp
-    return arr
 }

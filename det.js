@@ -4,6 +4,7 @@ let Det;
 
 (function () {
     Det = function (array) {
+        console.log(array)
         this.array = array
         this.length = array.length
         // 阶乘，元素个数
@@ -105,6 +106,27 @@ let Det;
             }
             for (let j = 0; j < len; j++) {
                 newArr[i][j] = this.array[j][i]
+            }
+        }
+        return new Det(newArr)
+    }
+
+    // 互换行列式的两行（列）
+    /**
+     * 
+     * @param {Number} n0 
+     * @param {Number} n1 
+     * @param {Boolean} isRow
+     */
+    Det.prototype.swap = function (n0, n1, isRow=true) {
+        let newArr = this.array.slice()
+
+        if(isRow) {
+            newArr = swap(newArr, n0, n1)
+        } else {
+            let len = this.length
+            for (let i = 0; i < len; i++) {
+                newArr[i] = swap(newArr[i], n0, n1)
             }
         }
         return new Det(newArr)
