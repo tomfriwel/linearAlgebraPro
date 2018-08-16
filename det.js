@@ -90,7 +90,6 @@ let Det;
             sum += this.itemValue(i)
         }
 
-        console.log(this.array)
         console.log(sum)
 
         return sum
@@ -101,7 +100,7 @@ let Det;
         let len = this.length
         let newArr = new Array(len)
         for (let i = 0; i < len; i++) {
-            if(!newArr[i]) {
+            if (!newArr[i]) {
                 newArr[i] = new Array(len)
             }
             for (let j = 0; j < len; j++) {
@@ -114,14 +113,14 @@ let Det;
     // 互换行列式的两行（列）
     /**
      * 
-     * @param {Number} n0 
-     * @param {Number} n1 
+     * @param {Number} n0 行/列，从0开始
+     * @param {Number} n1 行/列，从0开始
      * @param {Boolean} isRow
      */
-    Det.prototype.swap = function (n0, n1, isRow=true) {
-        let newArr = this.array.slice()
+    Det.prototype.swap = function (n0, n1, isRow = true) {
+        let newArr = JSON.parse(JSON.stringify(this.array)) //deap copy
 
-        if(isRow) {
+        if (isRow) {
             newArr = swap(newArr, n0, n1)
         } else {
             let len = this.length
@@ -129,6 +128,32 @@ let Det;
                 newArr[i] = swap(newArr[i], n0, n1)
             }
         }
+        return new Det(newArr)
+    }
+
+    // 某一行（列）乘以一个数
+    /**
+     * 
+     * @param {Number} n 行/列，从0开始
+     * @param {Number} k 数 
+     * @param {Boolean} isRow 默认行
+     */
+    Det.prototype.multiply = function (n, k, isRow = true) {
+        let newArr = JSON.parse(JSON.stringify(this.array))
+        let len = this.length
+
+        if (isRow) {
+            for (i = 0; i < len; i++) {
+                newArr[n][i] *= k
+            }
+        } else {
+            for (let i = 0; i < len; i++) {
+                newArr[i][n] *= k
+            }
+        }
+
+        console.log(newArr[n])
+        console.log(this.array[n])
         return new Det(newArr)
     }
 })()

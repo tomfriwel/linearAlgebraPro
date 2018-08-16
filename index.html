@@ -12,30 +12,42 @@
 <script src="./util.js"></script>
 <script src="./det.js"></script>
 <script>
-    // 测试转置行列式
+    // 行列式的性质1 测试转置行列式
     // let det = new Det([
     //     [1, 1, 1, 1],
     //     [2, 2, 2, 2],
     //     [3, 3, 3, 3],
     //     [4, 4, 4, 41],
     // ])
-    // let det = new Det([
-    //     [2, 1, -5, 1],
-    //     [1, -3, 0, -6],
-    //     [0, 2, -1, 2],
-    //     [1, 4, -7, 6]
-    // ])
-    // det.calc()
+    let det = new Det([
+        [2, 1, -5, 1],
+        [1, -3, 0, -6],
+        [0, 2, -1, 2],
+        [1, 4, -7, 6]
+    ])
+    det.calc()
 
     // let tdet = det.getTransposedDet()
     // tdet.calc()
 
-    // 测试互换行列式的两行（列）
-    det.calc()
+    // 行列式的性质2 测试互换行列式的两行（列）
+    // det.calc()
 
-    let tdet = det.swap(3, 1, true)
+    // let tdet = det.swap(3, 1, true)
     // let tdet = det.swap(3, 1, false)
-    tdet.calc()
+    // tdet.calc()
+
+
+    // 行列式的形式3
+    // let det2 = new Det([
+    //     [4, 1, -5, 1],
+    //     [2, -3, 0, -6],
+    //     [0, 2, -1, 2],
+    //     [2, 4, -7, 6]
+    // ])
+    // det2.calc()
+    
+
 </script>
 <!-- <script>
     // 序列对象
