@@ -152,8 +152,6 @@ let Det;
             }
         }
 
-        console.log(newArr[n])
-        console.log(this.array[n])
         return new Det(newArr)
     }
 })()
