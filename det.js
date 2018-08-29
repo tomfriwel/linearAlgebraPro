@@ -143,7 +143,7 @@ let Det;
         let len = this.length
 
         if (isRow) {
-            for (i = 0; i < len; i++) {
+            for (let i = 0; i < len; i++) {
                 newArr[n][i] *= k
             }
         } else {
@@ -153,5 +153,87 @@ let Det;
         }
 
         return new Det(newArr)
+    }
+
+    // 检查某一行（列）是否与另一行（列）成比例，如果是则为零
+    /**
+     * @returns {Boolean} false no proportion
+     */
+    Det.prototype.checkProportion = function () {
+        let newArr = JSON.parse(JSON.stringify(this.array))
+        let len = this.length
+
+        let isExist = false
+
+        // row
+        for (let i = 0; i < len - 1; i++) {
+            if(isExist) {
+                break
+            }
+            let arr0 = newArr[i]
+            for (let k = i + 1; k < len; k++) {
+                if(isExist) {
+                    break
+                }
+                let arr1 = newArr[k]
+
+                isExist = check(arr0, arr1)
+            }
+        }
+
+        // col
+        if (!isExist) {
+            for (let i = 0; i < len - 1; i++) {
+                if(isExist) {
+                    break
+                }
+                let arr0 = []
+                for (let n = 0; n < len; n++) {
+                    arr0.push(newArr[n][i])
+                }
+                for (let k = i + 1; k < len; k++) {
+                    if(isExist) {
+                        break
+                    }
+                    let arr1 = []
+                    for (let n = 0; n < len; n++) {
+                        arr1.push(newArr[n][k])
+                    }
+                    
+                    isExist = check(arr0, arr1)
+                }
+            }
+        }
+
+        function check(arr0, arr1) {
+            let res = false
+            let c = null
+            for (let j = 0; j < len; j++) {
+                let a0 = arr0[j] * 1.0
+                let a1 = arr1[j] * 1.0
+
+                if (a0 == 0 && a1 == 0) {
+                    continue
+                }
+                if((a0==0 &&a1!=0)||(a0!=0 &&a1==0)) {
+                    break
+                }
+                if (a0 != 0 && c == null) {
+                    c = a1 / a0
+                    continue
+                }
+
+                if (c != null && a0 != 0) {
+                    if (c == a1 / a0 && j == len - 1) {
+                        res = true
+                    } else if (c !== a1 / a0) {
+                        break
+                    }
+                }
+            }
+            return res
+        }
+
+        return isExist
     }
 })()
