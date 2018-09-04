@@ -246,6 +246,9 @@ let Det;
      * @param {Boolean} isRow
      */
     Det.prototype.plusLine = function (n0, n1, k, isRow=true) {
+        if(n0==n1) {
+            throw('不能加到同一行或列')
+        }
         let newArr = JSON.parse(JSON.stringify(this.array))
         let len = this.length
 
