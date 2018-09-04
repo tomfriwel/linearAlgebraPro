@@ -236,4 +236,29 @@ let Det;
 
         return isExist
     }
+
+    // 性质6：把行列式的某一行（列）的各元素乘以同一个倍数加到另一行（列）对应的元素上去，行列式不变。
+    /**
+     * 
+     * @param {Number} n0 行/列
+     * @param {Number} n1 行/列
+     * @param {Number} k 行列式的 n0(行/列) + n1(行/列)*k
+     * @param {Boolean} isRow
+     */
+    Det.prototype.plusLine = function (n0, n1, k, isRow=true) {
+        let newArr = JSON.parse(JSON.stringify(this.array))
+        let len = this.length
+
+        if (isRow) {
+            for (let i = 0; i < len; i++) {
+                newArr[n0][i] += newArr[n1][i] * k
+            }
+        } else {
+            for (let i = 0; i < len; i++) {
+                newArr[i][n0] += newArr[i][n1] * k
+            }
+        }
+
+        return new Det(newArr)
+    }
 })()
