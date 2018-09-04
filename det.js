@@ -167,12 +167,12 @@ let Det;
 
         // row
         for (let i = 0; i < len - 1; i++) {
-            if(isExist) {
+            if (isExist) {
                 break
             }
             let arr0 = newArr[i]
             for (let k = i + 1; k < len; k++) {
-                if(isExist) {
+                if (isExist) {
                     break
                 }
                 let arr1 = newArr[k]
@@ -184,7 +184,7 @@ let Det;
         // col
         if (!isExist) {
             for (let i = 0; i < len - 1; i++) {
-                if(isExist) {
+                if (isExist) {
                     break
                 }
                 let arr0 = []
@@ -192,14 +192,14 @@ let Det;
                     arr0.push(newArr[n][i])
                 }
                 for (let k = i + 1; k < len; k++) {
-                    if(isExist) {
+                    if (isExist) {
                         break
                     }
                     let arr1 = []
                     for (let n = 0; n < len; n++) {
                         arr1.push(newArr[n][k])
                     }
-                    
+
                     isExist = check(arr0, arr1)
                 }
             }
@@ -215,7 +215,7 @@ let Det;
                 if (a0 == 0 && a1 == 0) {
                     continue
                 }
-                if((a0==0 &&a1!=0)||(a0!=0 &&a1==0)) {
+                if ((a0 == 0 && a1 != 0) || (a0 != 0 && a1 == 0)) {
                     break
                 }
                 if (a0 != 0 && c == null) {
