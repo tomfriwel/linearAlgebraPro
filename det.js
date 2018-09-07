@@ -95,7 +95,7 @@ let Det;
         return sum
     }
 
-    // 获取转置行列式
+    // 性质1：获取转置行列式
     Det.prototype.getTransposedDet = function () {
         let len = this.length
         let newArr = new Array(len)
@@ -110,7 +110,7 @@ let Det;
         return new Det(newArr)
     }
 
-    // 互换行列式的两行（列）
+    // 性质2：互换行列式的两行（列）
     /**
      * 
      * @param {Number} n0 行/列，从0开始
@@ -131,7 +131,7 @@ let Det;
         return new Det(newArr)
     }
 
-    // 某一行（列）乘以一个数
+    // 性质3：某一行（列）乘以一个数
     /**
      * 
      * @param {Number} n 行/列，从0开始
@@ -155,7 +155,7 @@ let Det;
         return new Det(newArr)
     }
 
-    // 检查某一行（列）是否与另一行（列）成比例，如果是则为零
+    // 性质4：检查某一行（列）是否与另一行（列）成比例，如果是则为零
     /**
      * @returns {Boolean} false no proportion
      */
