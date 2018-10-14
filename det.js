@@ -95,7 +95,7 @@ let Det;
         return sum
     }
 
-    // --- 行列式的性质 ---
+    // --- 行列式的性质 start ---
     // 性质1：获取转置行列式
     Det.prototype.getTransposedDet = function () {
         let len = this.length
@@ -268,5 +268,5 @@ let Det;
         return new Det(newArr)
     }
 
-    // --- 行列式的性质 ---
+    // --- 行列式的性质 end ---
 })()
