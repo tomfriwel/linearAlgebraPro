@@ -117,8 +117,8 @@
 
     // 除aij外，其余都为零的话，行列式的值为aij乘以它的代数余子式
     let det1 = new Det([
-        [1, 3, 0, 5],
-        [5, -3, 0, 3],
+        [1, 3, 2, 5],
+        [5, -3, -1, 3],
         [0, 0, -2, 0],
         [-5, 2, 0, 4]
     ])
@@ -128,12 +128,18 @@
     //     [0, 1, -2, 2],
     //     [0, 2, -1, 4]
     // ])
-    det1.calc()
+    let res0 = det1.calc()
     let c2 = det1.complementMinor(2, 2)
     let a0 = -2 * Math.pow(-1, 2 + 2) * c2.calc()
     // let c2 = det1.complementMinor(0, 0)
     // let a0 = 5 * Math.pow(-1, 0) * c2.calc()
     console.log(a0)
+    let res1 = det1.calcViaComplement(0)
+    let res2 = det1.calcViaComplement(2)
+
+    console.log('res0=' + res0)
+    console.log('res1=' + res1)
+    console.log('res2=' + res2)
 
 </script>
 <!-- <script>

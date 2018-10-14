@@ -281,7 +281,7 @@ let Det;
     Det.prototype.complementMinor = function (i, j) {
         let len = this.length
         if (!(i < len && j < len)) {
-            throw ('行标或列标超出范围: 0~'+(len-1))
+            throw ('行标或列标超出范围: 0~' + (len - 1))
         }
         let detArr = JSON.parse(JSON.stringify(this.array))
         let newArr = []
@@ -296,5 +296,23 @@ let Det;
         return new Det(newArr)
     }
     // algebraic complement
+    /**
+      * 通过代数余子式来计算行列式的值
+      * 
+      * @param {Number} i 行
+      */
+    Det.prototype.calcViaComplement = function (i = 0) {
+        let len = this.length
+        if (!(i < len)) {
+            throw ('行标或列标超出范围: 0~' + (len - 1))
+        }
+        let sum = 0
+        for (let k = 0; k < len; k++) {
+            let tempDet = this.complementMinor(i, k)
+            sum += tempDet.calc() * Math.pow(-1, k + i) * this.array[i][k]
+        }
+
+        return sum
+    }
     // --- 行列式按行(列)展开 end ---
 })()
