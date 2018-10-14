@@ -279,13 +279,14 @@ let Det;
      * @param {Number} j 列
      */
     Det.prototype.complementMinor = function (i, j) {
+        let len = this.length
+        if (!(i < len && j < len)) {
+            throw ('行标或列标超出范围: 0~'+(len-1))
+        }
         let detArr = JSON.parse(JSON.stringify(this.array))
         let newArr = []
-        let len = this.length
         for (let k = 0; k < len; k++) {
-            if (i == k) {
-
-            } else {
+            if (i != k) {
                 let temp = detArr[k]
                 temp.splice(j, 1)
                 newArr.push(temp)
