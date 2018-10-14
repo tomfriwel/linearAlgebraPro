@@ -248,9 +248,9 @@ let Det;
      * @param {Number} k 行列式的 n0(行/列) + n1(行/列)*k
      * @param {Boolean} isRow
      */
-    Det.prototype.plusLine = function (n0, n1, k, isRow=true) {
-        if(n0==n1) {
-            throw('不能加到同一行或列')
+    Det.prototype.plusLine = function (n0, n1, k, isRow = true) {
+        if (n0 == n1) {
+            throw ('不能加到同一行或列')
         }
         let newArr = JSON.parse(JSON.stringify(this.array))
         let len = this.length
@@ -269,4 +269,31 @@ let Det;
     }
 
     // --- 行列式的性质 end ---
+
+    // --- 行列式按行(列)展开 start ---
+    // complement minor
+    /**
+     * 余子式
+     * 
+     * @param {Number} i 行
+     * @param {Number} j 列
+     */
+    Det.prototype.complementMinor = function (i, j) {
+        let detArr = JSON.parse(JSON.stringify(this.array))
+        let newArr = []
+        let len = this.length
+        for (let k = 0; k < len; k++) {
+            if (i == k) {
+
+            } else {
+                let temp = detArr[k]
+                temp.splice(j, 1)
+                newArr.push(temp)
+            }
+        }
+
+        return new Det(newArr)
+    }
+    // algebraic complement
+    // --- 行列式按行(列)展开 end ---
 })()
