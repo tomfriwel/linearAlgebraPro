@@ -49,11 +49,29 @@ class Mat {
         return new Mat(newArray);
     }
 
+    static multiplyNumber(mat, n) {
+        let newArray = new Array(mat.columnLength);
+        for (let i = 0; i < mat.columnLength; i++) {
+            if(!newArray[i]) {
+                newArray[i] = new Array(mat.rowLength);
+            }
+            for (let j = 0; j < mat.rowLength; j++) {
+                newArray[i][j] = mat.array[i][j] * n;
+            }
+        }
+
+        return new Mat(newArray);
+    }
+
     add(mat) {
-        return Mat.add(this, mat)
+        return Mat.add(this, mat);
     }
 
     subtract(mat) {
-        return Mat.subtract(this, mat)
+        return Mat.subtract(this, mat);
+    }
+
+    multiplyNumber(n) {
+        return Mat.multiplyNumber(n);
     }
 }
