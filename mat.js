@@ -87,6 +87,22 @@ class Mat {
 
         return new Mat(newArray);
     }
+    //获取转置矩阵
+    static getTransposedMat(mat) {
+        let rlen = mat.rowLength;
+        let clen = mat.colLength;
+        let newArr = new Array(clen);
+
+        for (let i = 0; i < clen; i++) {
+            if (!newArr[i]) {
+                newArr[i] = new Array(rlen);
+            }
+            for (let j = 0; j < rlen; j++) {
+                newArr[i][j] = mat.array[j][i];
+            }
+        }
+        return new Mat(newArr)
+    }
 
     add(mat) {
         return Mat.add(this, mat);
@@ -102,5 +118,10 @@ class Mat {
 
     multiply(mat) {
         return Mat.multiply(this, mat);
+    }
+
+    //获取转置矩阵
+    getTransposedMat () {
+        return Mat.getTransposedMat(this);
     }
 }
