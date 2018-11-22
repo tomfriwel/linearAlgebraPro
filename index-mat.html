@@ -43,24 +43,24 @@
     //     [-1, 1, 3, 0],
     //     [0, 5, -1, 4],
     // ]);
-    let b = new Mat([
-        [0, 3, 4],
-        [1, 2, 1],
-        [3, 1, -1],
-        [-1, 2, 1],
-    ]);
-    // Mat.multiply(a, b);
-    // 0: (3) [-5, 6, 7]
-    // 1: (3) [10, 2, -6]
-    // 2: (3) [-2, 17, 10]
+    // let b = new Mat([
+    //     [0, 3, 4],
+    //     [1, 2, 1],
+    //     [3, 1, -1],
+    //     [-1, 2, 1],
+    // ]);
+    // // Mat.multiply(a, b);
+    // // 0: (3) [-5, 6, 7]
+    // // 1: (3) [10, 2, -6]
+    // // 2: (3) [-2, 17, 10]
 
-    // 转置矩阵
-    let a = new Mat([
-        [1, 0, -1],
-        [-1, 1, 3],
-        [0, 5, -1],
-        [0, 5, -1],
-    ]);
+    // // 转置矩阵
+    // let a = new Mat([
+    //     [1, 0, -1],
+    //     [-1, 1, 3],
+    //     [0, 5, -1],
+    //     [0, 5, -1],
+    // ]);
     
     // [1, 3, 3],
     // [0, 3, 4],
@@ -71,19 +71,56 @@
     // [3, 3, 6, 7],
     // [3, 4, -2, 0],
 
-    let at = b.getTransposedMat();
-    let bt = b.getTransposedMat();
+    // let at = a.getTransposedMat();
+    // let bt = b.getTransposedMat();
     // 0: (4) [0, 1, 3, -1]
     // 1: (4) [3, 2, 1, 2]
     // 2: (4) [4, 1, -1, 1]
     // bt.getTransposedMat();
     // 性质2
-    let ab = Mat.add(a, b);
-    console.log('add2');
-    Mat.add(at, bt);
+    // console.log('A，B转置相加');
+    // Mat.add(at, bt);
 
-    // console.log('add1');
+    // console.log('A+B的转置');
+    // let ab = Mat.add(a, b);
     // ab.getTransposedMat();
+    // 0: (4) [1, 0, 3, -1]
+    // 1: (4) [3, 3, 6, 7]
+    // 2: (4) [3, 4, -2, 0]
     
+    // // λA的转置
+    // let n = 5;
+    // let an = a.multiplyNumber(n);
+    // an.getTransposedMat();
 
+    // // λ乘以A的转置
+    // let at = a.getTransposedMat();
+    // at.multiplyNumber(n);
+    // 0: (4) [5, -5, 0, 0]
+    // 1: (4) [0, 5, 25, 25]
+    // 2: (4) [-5, 15, -5, -5]
+
+    let a = new Mat([
+        [1, 0, -1],
+        [-1, 1, 3],
+        [0, 5, -1],
+        [0, 5, -1],
+    ]); //4*3
+    let b = new Mat([
+        [0, 3],
+        [1, -2],
+        [3, 1],
+    ]); //3*2
+    // AB转置
+    let ab = Mat.multiply(a, b);
+    console.log('1');
+    ab.getTransposedMat();
+
+    // B的转置乘A的转置
+    let at = a.getTransposedMat();
+    let bt = b.getTransposedMat();
+    console.log('2');
+    Mat.multiply(bt, at);
+    // 0: (4) [-3, 10, 2, 2]
+    // 1: (4) [2, -2, -11, -11]
 </script>
