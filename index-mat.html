@@ -100,27 +100,54 @@
     // 1: (4) [0, 5, 25, 25]
     // 2: (4) [-5, 15, -5, -5]
 
+    // let a = new Mat([
+    //     [1, 0, -1],
+    //     [-1, 1, 3],
+    //     [0, 5, -1],
+    //     [0, 5, -1],
+    // ]); //4*3
+    // let b = new Mat([
+    //     [0, 3],
+    //     [1, -2],
+    //     [3, 1],
+    // ]); //3*2
+    // // AB转置
+    // let ab = Mat.multiply(a, b);
+    // console.log('1');
+    // ab.getTransposedMat();
+
+    // // B的转置乘A的转置
+    // let at = a.getTransposedMat();
+    // let bt = b.getTransposedMat();
+    // console.log('2');
+    // Mat.multiply(bt, at);
+    // 0: (4) [-3, 10, 2, 2]
+    // 1: (4) [2, -2, -11, -11]
+
+    // 矩阵类型
     let a = new Mat([
         [1, 0, -1],
         [-1, 1, 3],
         [0, 5, -1],
         [0, 5, -1],
-    ]); //4*3
+    ]);
     let b = new Mat([
-        [0, 3],
-        [1, -2],
-        [3, 1],
-    ]); //3*2
-    // AB转置
-    let ab = Mat.multiply(a, b);
-    console.log('1');
-    ab.getTransposedMat();
-
-    // B的转置乘A的转置
-    let at = a.getTransposedMat();
-    let bt = b.getTransposedMat();
-    console.log('2');
-    Mat.multiply(bt, at);
-    // 0: (4) [-3, 10, 2, 2]
-    // 1: (4) [2, -2, -11, -11]
+        [12, 6, 1],
+        [6, 8, -1],
+        [1, -1, 6],
+    ]);
+    let c = new Mat([
+        [0, -6, 1],
+        [6, 0, 7],
+        [-1, -7, 0],
+    ]);
+    let d = new Mat([
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+    ]);
+    console.log(a.getMatType());
+    console.log(b.getMatType());
+    console.log(c.getMatType());
+    console.log(d.getMatType());
 </script>

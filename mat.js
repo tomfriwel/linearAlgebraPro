@@ -19,7 +19,7 @@ class Mat {
 
         let newArray = new Array(mat0.rowLength);
         for (let i = 0; i < mat0.rowLength; i++) {
-            if(!newArray[i]) {
+            if (!newArray[i]) {
                 newArray[i] = new Array(mat0.colLength);
             }
             for (let j = 0; j < mat0.colLength; j++) {
@@ -38,7 +38,7 @@ class Mat {
 
         let newArray = new Array(mat0.rowLength);
         for (let i = 0; i < mat0.rowLength; i++) {
-            if(!newArray[i]) {
+            if (!newArray[i]) {
                 newArray[i] = new Array(mat0.colLength);
             }
             for (let j = 0; j < mat0.colLength; j++) {
@@ -52,7 +52,7 @@ class Mat {
     static multiplyNumber(mat, n) {
         let newArray = new Array(mat.rowLength);
         for (let i = 0; i < mat.rowLength; i++) {
-            if(!newArray[i]) {
+            if (!newArray[i]) {
                 newArray[i] = new Array(mat.colLength);
             }
             for (let j = 0; j < mat.colLength; j++) {
@@ -74,7 +74,7 @@ class Mat {
 
         let newArray = new Array(newRowLength);
         for (let i = 0; i < newRowLength; i++) {
-            if(!newArray[i]) {
+            if (!newArray[i]) {
                 newArray[i] = new Array(newColLength);
             }
             for (let j = 0; j < newColLength; j++) {
@@ -104,6 +104,47 @@ class Mat {
         return new Mat(newArr)
     }
 
+    // 矩阵类型
+    static getMatType(mat) {
+        let rlen = mat.rowLength;
+        let clen = mat.colLength;
+
+        let typeString = '普通矩阵';
+        if (rlen == clen) {
+            let mat_t = Mat.getTransposedMat(mat);
+            let symmetric = 0;
+            let dissymmetric = 0;
+            let finish = false;
+            for (let i = 0; i < clen; i++) {
+                for (let j = 0; j < rlen; j++) {
+                    if (mat.array[i][j] == mat_t.array[i][j]) {
+                        symmetric += 1;
+                        if(mat.array[i][j]==0) {
+                            dissymmetric += 1;
+                        }
+                    } else if (mat.array[i][j] == -mat_t.array[i][j]) {
+                        dissymmetric += 1;
+                    } else {
+                        finish = true;
+                        break;
+                    }
+                }
+                if (finish) {
+                    break;
+                }
+            }
+            let sum = rlen * rlen;
+            if (symmetric == sum && dissymmetric == sum) {
+                typeString = '既是对称阵又是反对称阵';
+            } else if (symmetric == sum) {
+                typeString = '对称阵';
+            } else if (dissymmetric == sum) {
+                typeString = '反对称阵';
+            }
+        }
+        return typeString;
+    }
+
     add(mat) {
         return Mat.add(this, mat);
     }
@@ -121,7 +162,11 @@ class Mat {
     }
 
     //获取转置矩阵
-    getTransposedMat () {
+    getTransposedMat() {
         return Mat.getTransposedMat(this);
+    }
+
+    getMatType() {
+        return Mat.getMatType(this);
     }
 }
