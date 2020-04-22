@@ -1,4 +1,4 @@
-const util = require('./utils/util')
+const util = require('../utils/util')
 const { generate, factorial, calcInverseNumber }  = util
 
 // 计算行列式的值
