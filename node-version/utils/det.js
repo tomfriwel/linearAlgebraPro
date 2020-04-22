@@ -1,8 +1,12 @@
 // linera algebra determinant class
+const util = require('./util')
+const { factorial, generate } = util
 
 class Det {
   constructor(array) {
-    console.log(array)
+    array.map(ele => {
+      console.log(ele)
+    })
     this.array = array
     this.length = array.length
     // 阶乘，元素个数
@@ -20,10 +24,10 @@ class Det {
   }
 
 
-    // 阶乘
+  // 阶乘
   itemLength() {
     if (this._itemLength == null) {
-        this._itemLength = factorial(this.length)
+      this._itemLength = factorial(this.length)
     }
     return this._itemLength
   }
@@ -31,22 +35,22 @@ class Det {
   // 逆序数
   inverseNumber(index) {
     if (this.inverseNumberArray == null) {
-        this.inverseNumberArray = new Array(this.itemLength())
+      this.inverseNumberArray = new Array(this.itemLength())
     }
     if (this.inverseNumberArray[index] == undefined) {
-        let sum = 0
-        let item = this.items()[index]
-        for (let i = 0, len = item.length; i < len; i++) {
-            // 取出第i个数
-            let digit = item[i]
-            // 用第i个数与第i位之后的数进行对比
-            for (let j = i + 1; j < len; j++) {
-                if (digit > item[j]) {
-                    sum++
-                }
-            }
+      let sum = 0
+      let item = this.items()[index]
+      for (let i = 0, len = item.length; i < len; i++) {
+        // 取出第i个数
+        let digit = item[i]
+        // 用第i个数与第i位之后的数进行对比
+        for (let j = i + 1; j < len; j++) {
+          if (digit > item[j]) {
+            sum++
+          }
         }
-        this.inverseNumberArray[index] = sum
+      }
+      this.inverseNumberArray[index] = sum
     }
     return this.inverseNumberArray[index]
   }
@@ -54,13 +58,13 @@ class Det {
   // 获取保存每个项的数组
   items() {
     if (this._items == null) {
-        this._items = []
+      this._items = []
 
-        let standardIndex = []
-        for (let i = 0; i < this.length; i++) {
-            standardIndex.push(i)
-        }
-        generate(this.length, standardIndex, this._items)
+      let standardIndex = []
+      for (let i = 0; i < this.length; i++) {
+        standardIndex.push(i)
+      }
+      generate(this.length, standardIndex, this._items)
     }
     return this._items
   }
@@ -68,17 +72,17 @@ class Det {
   // 获取单个项的值
   itemValue(index) {
     if (this.itemValues == null) {
-        this.itemValues = new Array(this.itemLength())
+      this.itemValues = new Array(this.itemLength())
     }
     if (this.itemValues[index] == undefined || this.reCalc) {
-        let inverseCount = this.inverseNumber(index)
-        let data = this.array
-        let item = this.items()[index]
-        let value = (inverseCount % 2 ? -1 : 1)
-        for (let j = 0, n = this.length; j < n; j++) {
-            value *= data[j][item[j]]
-        }
-        this.itemValues[index] = value
+      let inverseCount = this.inverseNumber(index)
+      let data = this.array
+      let item = this.items()[index]
+      let value = (inverseCount % 2 ? -1 : 1)
+      for (let j = 0, n = this.length; j < n; j++) {
+        value *= data[j][item[j]]
+      }
+      this.itemValues[index] = value
     }
     return this.itemValues[index]
   }
@@ -86,7 +90,7 @@ class Det {
   calc() {
     let sum = 0
     for (let i = 0, len = this.itemLength(); i < len; i++) {
-        sum += this.itemValue(i)
+      sum += this.itemValue(i)
     }
 
     console.log(sum)
@@ -100,12 +104,12 @@ class Det {
     let len = this.length
     let newArr = new Array(len)
     for (let i = 0; i < len; i++) {
-        if (!newArr[i]) {
-            newArr[i] = new Array(len)
-        }
-        for (let j = 0; j < len; j++) {
-            newArr[i][j] = this.array[j][i]
-        }
+      if (!newArr[i]) {
+        newArr[i] = new Array(len)
+      }
+      for (let j = 0; j < len; j++) {
+        newArr[i][j] = this.array[j][i]
+      }
     }
     return new Det(newArr)
   }
@@ -121,12 +125,12 @@ class Det {
     let newArr = JSON.parse(JSON.stringify(this.array)) //deap copy
 
     if (isRow) {
-        newArr = swap(newArr, n0, n1)
+      newArr = swap(newArr, n0, n1)
     } else {
-        let len = this.length
-        for (let i = 0; i < len; i++) {
-            newArr[i] = swap(newArr[i], n0, n1)
-        }
+      let len = this.length
+      for (let i = 0; i < len; i++) {
+        newArr[i] = swap(newArr[i], n0, n1)
+      }
     }
     return new Det(newArr)
   }
@@ -144,13 +148,13 @@ class Det {
     let len = this.length
 
     if (isRow) {
-        for (let i = 0; i < len; i++) {
-            newArr[n][i] *= k
-        }
+      for (let i = 0; i < len; i++) {
+        newArr[n][i] *= k
+      }
     } else {
-        for (let i = 0; i < len; i++) {
-            newArr[i][n] *= k
-        }
+      for (let i = 0; i < len; i++) {
+        newArr[i][n] *= k
+      }
     }
 
     return new Det(newArr)
@@ -168,71 +172,71 @@ class Det {
 
     // row
     for (let i = 0; i < len - 1; i++) {
+      if (isExist) {
+        break
+      }
+      let arr0 = newArr[i]
+      for (let k = i + 1; k < len; k++) {
         if (isExist) {
-            break
+          break
         }
-        let arr0 = newArr[i]
-        for (let k = i + 1; k < len; k++) {
-            if (isExist) {
-                break
-            }
-            let arr1 = newArr[k]
+        let arr1 = newArr[k]
 
-            isExist = check(arr0, arr1)
-        }
+        isExist = check(arr0, arr1)
+      }
     }
 
     // col
     if (!isExist) {
-        for (let i = 0; i < len - 1; i++) {
-            if (isExist) {
-                break
-            }
-            let arr0 = []
-            for (let n = 0; n < len; n++) {
-                arr0.push(newArr[n][i])
-            }
-            for (let k = i + 1; k < len; k++) {
-                if (isExist) {
-                    break
-                }
-                let arr1 = []
-                for (let n = 0; n < len; n++) {
-                    arr1.push(newArr[n][k])
-                }
-
-                isExist = check(arr0, arr1)
-            }
+      for (let i = 0; i < len - 1; i++) {
+        if (isExist) {
+          break
         }
+        let arr0 = []
+        for (let n = 0; n < len; n++) {
+          arr0.push(newArr[n][i])
+        }
+        for (let k = i + 1; k < len; k++) {
+          if (isExist) {
+            break
+          }
+          let arr1 = []
+          for (let n = 0; n < len; n++) {
+            arr1.push(newArr[n][k])
+          }
+
+          isExist = check(arr0, arr1)
+        }
+      }
     }
 
     function check(arr0, arr1) {
-        let res = false
-        let c = null
-        for (let j = 0; j < len; j++) {
-            let a0 = arr0[j] * 1.0
-            let a1 = arr1[j] * 1.0
+      let res = false
+      let c = null
+      for (let j = 0; j < len; j++) {
+        let a0 = arr0[j] * 1.0
+        let a1 = arr1[j] * 1.0
 
-            if (a0 == 0 && a1 == 0) {
-                continue
-            }
-            if ((a0 == 0 && a1 != 0) || (a0 != 0 && a1 == 0)) {
-                break
-            }
-            if (a0 != 0 && c == null) {
-                c = a1 / a0
-                continue
-            }
-
-            if (c != null && a0 != 0) {
-                if (c == a1 / a0 && j == len - 1) {
-                    res = true
-                } else if (c !== a1 / a0) {
-                    break
-                }
-            }
+        if (a0 == 0 && a1 == 0) {
+          continue
         }
-        return res
+        if ((a0 == 0 && a1 != 0) || (a0 != 0 && a1 == 0)) {
+          break
+        }
+        if (a0 != 0 && c == null) {
+          c = a1 / a0
+          continue
+        }
+
+        if (c != null && a0 != 0) {
+          if (c == a1 / a0 && j == len - 1) {
+            res = true
+          } else if (c !== a1 / a0) {
+            break
+          }
+        }
+      }
+      return res
     }
 
     return isExist
@@ -249,19 +253,19 @@ class Det {
    */
   plusLine(n0, n1, k, isRow = true) {
     if (n0 == n1) {
-        throw ('不能加到同一行或列')
+      throw ('不能加到同一行或列')
     }
     let newArr = JSON.parse(JSON.stringify(this.array))
     let len = this.length
 
     if (isRow) {
-        for (let i = 0; i < len; i++) {
-            newArr[n0][i] += newArr[n1][i] * k
-        }
+      for (let i = 0; i < len; i++) {
+        newArr[n0][i] += newArr[n1][i] * k
+      }
     } else {
-        for (let i = 0; i < len; i++) {
-            newArr[i][n0] += newArr[i][n1] * k
-        }
+      for (let i = 0; i < len; i++) {
+        newArr[i][n0] += newArr[i][n1] * k
+      }
     }
 
     return new Det(newArr)
@@ -280,16 +284,16 @@ class Det {
   complementMinor(i, j) {
     let len = this.length
     if (!(i < len && j < len)) {
-        throw ('行标或列标超出范围: 0~' + (len - 1))
+      throw ('行标或列标超出范围: 0~' + (len - 1))
     }
     let detArr = JSON.parse(JSON.stringify(this.array))
     let newArr = []
     for (let k = 0; k < len; k++) {
-        if (i != k) {
-            let temp = detArr[k]
-            temp.splice(j, 1)
-            newArr.push(temp)
-        }
+      if (i != k) {
+        let temp = detArr[k]
+        temp.splice(j, 1)
+        newArr.push(temp)
+      }
     }
 
     return new Det(newArr)
@@ -303,23 +307,40 @@ class Det {
   calcViaComplement(i = 0) {
     let len = this.length
     if (!(i < len)) {
-        throw ('行标或列标超出范围: 0~' + (len - 1))
+      throw ('行标或列标超出范围: 0~' + (len - 1))
     }
     let sum = 0
     for (let k = 0; k < len; k++) {
-        let tempDet = this.complementMinor(i, k)
-        sum += tempDet.calc() * Math.pow(-1, k + i) * this.array[i][k]
+      let tempDet = this.complementMinor(i, k)
+      sum += tempDet.calc() * Math.pow(-1, k + i) * this.array[i][k]
     }
 
     return sum
   }
   // --- 行列式按行(列)展开 end ---
-}
 
-let Det;
-
-(function () {
-    Det = function (array) {
+  // --- 克拉默法则 start ----
+  /**
+   * 用给定的值替换行或列
+   * @param {Number} n 行、列，根据isRow来判定
+   * @param {Array} arr 替换用的数组
+   * @param {Boolean} isRow
+  */
+  replace(n, arr, isRow = true) {
+    let newArr = JSON.parse(JSON.stringify(this.array))
+    let len = this.length
+    if (isRow) {
+      for (let i = 0; i < len; i++) {
+        newArr[n][i] = arr[i]
+      }
+    } else {
+      for (let i = 0; i < len; i++) {
+        newArr[i][n] = arr[i]
+      }
     }
 
-})()
+    return new Det(newArr)
+  }
+}
+
+module.exports = Det
