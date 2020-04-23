@@ -7,8 +7,8 @@ class Det {
     array.map(ele => {
       console.log(ele)
     })
-    this.array = array
-    this.length = array.length
+    this.array = JSON.parse(JSON.stringify(array))
+    this.length = this.array.length
     // 阶乘，元素个数
     this._itemLength = null
 
@@ -99,7 +99,10 @@ class Det {
   }
 
   // --- 行列式的性质 start ---
-  // 性质1：获取转置行列式
+  // 性质1：行列式与它的的转置行列式相等
+  /**
+   * 获取转置行列式
+   */
   getTransposedDet() {
     let len = this.length
     let newArr = new Array(len)
@@ -114,8 +117,9 @@ class Det {
     return new Det(newArr)
   }
 
-  // 性质2：互换行列式的两行（列）
+  // 性质2：互换行列式的两行（列），行列式变号
   /**
+   * 互换行列式的两行（列）
    * 
    * @param {Number} n0 行/列，从0开始
    * @param {Number} n1 行/列，从0开始
@@ -134,6 +138,8 @@ class Det {
     }
     return new Det(newArr)
   }
+
+  // 推论：如果行列式有两列（行）完全相同，则此行列式等于零。
 
   // 性质3：某一行（列）乘以一个数
   // 行列式的某一行（列）中所有元素都乘以同一个数`k`，等于用数`k`乘以此行列式
@@ -160,9 +166,11 @@ class Det {
     return new Det(newArr)
   }
 
-  // 性质4：检查某一行（列）是否与另一行（列）成比例，如果是则为零
+  // 性质4：行列式中如果有两行（列）元素成比例，则此行列式等于零
   /**
-   * @returns {Boolean} false no proportion
+   * 检查某一行（列）是否与另一行（列）成比例，如果是则为零
+   * 
+   * @return {Boolean} false no proportion
    */
   checkProportion() {
     let newArr = JSON.parse(JSON.stringify(this.array))
@@ -298,7 +306,18 @@ class Det {
 
     return new Det(newArr)
   }
-  // algebraic complement
+
+  /**
+   * 代数余子式algebraic complement
+   * 
+   * @param {Number} i 行
+   * @param {Number} j 列
+   */
+  algebraicComplement(i, j) {
+
+  }
+
+
   /**
     * 通过代数余子式来计算行列式的值
     * 
