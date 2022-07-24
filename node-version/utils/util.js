@@ -69,6 +69,20 @@ function calcInverseNumber(item) {
   return sum
 }
 
+
+/**
+* 计算k的n次方
+* 
+* @param {Number} n 
+*/
+function power(n) {
+  var result = 1
+  for (i = 2; i <= n; i++) {
+      result *= i
+  }
+  return result
+}
+
 module.exports = {
   generate,
   factorial,
