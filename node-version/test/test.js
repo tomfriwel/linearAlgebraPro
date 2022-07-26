@@ -16,5 +16,5 @@ function pkn(k, n) {
 let n = 30
 for (let i = n; i > -1; i--) {
     // pkn(i, n)
-    console.log(`${i}\t${100*pkn(i, n)}`)
+    console.log(`${i}\t${pkn(i, n)}`)
 }
